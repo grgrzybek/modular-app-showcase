@@ -1,0 +1,55 @@
+= JS Monorepo with webpack based application using esbuild based plugins/modules/libraries
+
+.Date: 2025-04-10
+
+When trying to use https://github.com/andytaylor/activemq-artemis-console/tree/hawtio-up[ActiveMQ Artemis Console] as real Hawtio plugin in https://github.com/hawtio/hawtio-next/tree/main/app[Hawtio Application] I found some issue related to how all these bits of code are bundled.
+
+hawtio/hawtio-next repository contains:
+
+* `app` an application built with webpack that uses `@hawtio/react` package. It also uses (to some extent) Webpack Module Federation tooling
+* `packages/hawtio` - a package built with tsup (which uses esbuild and rollup) used by the `app`
+
+Artemis Console uses `@hawtio/react`, but doesn't provide own reusable package - it only builds _final_ application using webpack.
+
+The problems started when I extracted library and app code and consumed the library in Hawtio's `app`. I had problems:
+
+* Artemis plugin relied on communication with Jolokia, but it wasn't ready yet (user didn't yet log in into hawtio-connect tab for Artemis broker with Jolokia agent) - rejected promise error
+* `ArtemisTable` has React errors (passing object instead of string/function to create component)
+
+I also see a webpack asset/chunk hell created in hawtio - out of 102 files (chunks/assets?) 89 were from Monaco editor.
+
+Can't we have nice "vendored" chunks/bundles/assets?
+
+https://blog.jakoblind.no/code-split-vendors-with-webpack-for-faster-load-speed/
+
+== Another (and different) _blank page_ monorepo with yarn, webpack and tsup
+
+This time before adding yarn I'll start with `.yarnrc.yml`, so when I add yarn, it'll already use `node_modules/` instead of .pnp.cjs`.
+
+To get `packageManager` in `package.json`:
+----
+$ corepack use yarn
+Installing yarn@4.9.0 in the project...
+
+➤ YN0000: · Yarn 4.9.0
+➤ YN0000: ┌ Resolution step
+➤ YN0000: └ Completed
+➤ YN0000: ┌ Fetch step
+➤ YN0000: └ Completed
+➤ YN0000: ┌ Link step
+➤ YN0000: └ Completed
+➤ YN0000: · Done in 0s 36ms
+----
+
+To get yarn inside the project (so corepack's `yarn` uses our yarn for maximum consistency between devs' envs):
+----
+$ yarn set version 4.9.0 --yarn-path
+➤ YN0000: Downloading https://repo.yarnpkg.com/4.9.0/packages/yarnpkg-cli/bin/yarn.js
+➤ YN0000: Saving the new release in .yarn/releases/yarn-4.9.0.cjs
+➤ YN0000: Done in 0s 411ms
+----
+
+This added the below like to `.yarnrc.yml`:
+----
+yarnPath: .yarn/releases/yarn-4.9.0.cjs
+----
