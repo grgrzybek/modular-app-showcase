@@ -1,0 +1,3 @@
+= @hawtio/react like package
+
+This package (library) plays a role of `@hawtio/react` which should be used by _plugins_ and in the end, `@hawtio/react` with zero or more plugins can be used by some application.

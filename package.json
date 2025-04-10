@@ -2,5 +2,9 @@
   "name": "modular-app-showcase-monorepo",
   "version": "0",
   "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
   "packageManager": "yarn@4.9.0"
 }

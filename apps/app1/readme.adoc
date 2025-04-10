@@ -1,0 +1,3 @@
+= Just an application
+
+This is a simulation of hawtio/hawtio-next/app application which uses webpack, consumes `@hawtio/react` and uses static and module-federated plugins

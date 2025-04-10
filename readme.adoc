@@ -53,3 +53,12 @@ This added the below like to `.yarnrc.yml`:
 ----
 yarnPath: .yarn/releases/yarn-4.9.0.cjs
 ----
+
+== Structure
+
+I want to keep:
+
+* `tsup` built libraries/packages under `packages/`
+* `webpack` (`rspack`) built applications under `apps/`
+
+All are yarn workspaces.

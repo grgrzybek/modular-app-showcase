@@ -1,0 +1,3 @@
+= Simple application
+
+This is a simulation of hawtio/hawtio-next/app application which uses webpack, consumes `@hawtio/react` but doesn't use any own plugins - just does the React boostrap stuff and adds Hawtio's main react component.

@@ -1,0 +1,5 @@
+= Artemis Console Plugin
+
+This package (library) plays the role of https://github.com/andytaylor/activemq-artemis-console/tree/hawtio-up/artemis-console-extension/artemis-extension[Artemis Hawtio extension].
+
+I work on making it consumable NPM package (a library, not an application).
