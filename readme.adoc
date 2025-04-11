@@ -145,3 +145,11 @@ resolve: {
   extensions: [".ts", ".tsx", ".js", ".jsx"],
 },
 ----
+
+== Webpack code splitting
+
+When there was `index.ts` that imported `bootstrap.tsx` there was just one asset produced - `main.js`.
+After switching from `import` to `import()` webpack used https://webpack.js.org/guides/code-splitting/[code splitting].
+We can also (I guess) do the same with explicit usage of https://webpack.js.org/plugins/split-chunks-plugin/[SplitChunksPlugin].
+
+SplitChunksPlugin can be used directly in `plugins` configuration array, but also via `optimization.splitChunks`.
