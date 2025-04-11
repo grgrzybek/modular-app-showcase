@@ -1,3 +1,4 @@
+// This file is not used by webpack + swc-loader, but it helps IDE to validate TS files
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {

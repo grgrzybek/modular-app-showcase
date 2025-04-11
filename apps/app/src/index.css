@@ -1,0 +1,4 @@
+:where(:root) {
+  --pf-v5-global--FontSize--md: 12pt;
+  --pf-v5-global--FontFamily--text: sans-serif;
+}

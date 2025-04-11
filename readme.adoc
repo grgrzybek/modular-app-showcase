@@ -113,6 +113,8 @@ can only be default-imported using the esModuleInterop flag
 
 Switching `import React from "react"` to `import * as React from "react"` helped.
 
+Note:: after adding tsconfig.json with `"moduleResolution": "bundler"` (even if not used by webpack + swc-loader), IDE stopped complaining about `import React from "react"`.
+
 But webpack can't build it anyway (it's Typescript after all).
 
 So https://webpack.js.org/guides/typescript/
@@ -145,6 +147,29 @@ resolve: {
   extensions: [".ts", ".tsx", ".js", ".jsx"],
 },
 ----
+
+For libraries, I used `tsup.config.ts` and `tsconfig.json` files without any webpack configuration.
+I could then use this library package in app package using:
+[,json]
+----
+{
+  "dependencies": {
+    "@showcase/hawtio-react": "workspace:*"
+  }
+}
+----
+
+I could the import the library into application:
+
+[,javascript]
+----
+// noinspection ES6UnusedImports
+import { Main } from "@showcase/hawtio-react"
+----
+
+At this stage, I added `tsconfig.json` to webpack-built application just to stop IDE complaining about wanted `esModuleInterop` option.
+
+Everytime I changed `"@showcase/hawtio-react"` I had to `yarn tsup` it and the application with running `yarn webpack server` picked up the changes!
 
 == Webpack CSS support
 
