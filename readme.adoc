@@ -62,3 +62,86 @@ I want to keep:
 * `webpack` (`rspack`) built applications under `apps/`
 
 All are yarn workspaces.
+
+== React applications
+
+For Nth time - what is the order of turning empty `package.json` into React application that uses Patternfly, webpack, TypeScript (and linter/prettier, jest, ...)?
+
+I started with
+----
+yarn add -D react react-dom
+----
+
+and created empty `src/index.ts`.
+
+Now I think it's already time for a bundler. So adding clean `webpack.config.js` and `yarn add -D webpack webpack-cli`.
+
+[,javascript]
+----
+export default {
+  mode: "development",
+  // https://webpack.js.org/configuration/devtool/
+  devtool: false,
+  entry: {
+    "main": "./src/index.ts"
+  }
+}
+----
+
+`index.ts` imports (`import`, not `import()`) `bootstrap.tsx` which does the basic React initialization.
+
+`yarn run webpack` caused:
+
+----
+ERROR in ./src/index.ts 1:0-20
+Module not found: Error: Can't resolve './bootstrap' in '/data/sources/github.com/grgrzybek/modular-app-showcase/apps/app-simple/src'
+----
+
+because it's `import "./bootstrap"` - I always forget what's all about this extensionless importing.
+
+Also IDEA suggests:
+----
+Try npm i --save-dev @types/react if it exists or add a new declaration (.d.ts) file containing declare module 'react';
+----
+
+After adding `@types/react` IDEA shows this:
+----
+TS1259: Module
+"/data/sources/github.com/grgrzybek/modular-app-showcase/node_modules/@types/react/index"
+can only be default-imported using the esModuleInterop flag
+----
+
+Switching `import React from "react"` to `import * as React from "react"` helped.
+
+But webpack can't build it anyway (it's Typescript after all).
+
+So https://webpack.js.org/guides/typescript/
+
+Actually webpack explains this `import React` vs `import * as React`:
+
+TIP::
+To make imports do this by default and keep `import _ from 'lodash';` syntax in TypeScript, set `"allowSyntheticDefaultImports" : true` and `"esModuleInterop" : true` in your `tsconfig.json` file. This is related to TypeScript configuration and mentioned in our guide only for your information.
+
+Webpack recommends `ts-loader` for `.ts` files - highlighting that it's using THE `tsc` from Microsoft, which does full type checking. We'll be using `swc-loader` to make things faster.
+
+----
+yarn add -D swc-loader @swc/core
+----
+
+Still this extensionless import problem:
+----
+$ yarn run webpack
+asset main.js 1.04 KiB [emitted] (name: main)
+runtime modules 274 bytes 1 module
+./src/index.ts 22 bytes [built] [code generated]
+
+ERROR in ./src/index.ts 1:0-21
+Module not found: Error: Can't resolve './bootstrap' in '/data/sources/github.com/grgrzybek/modular-app-showcase/apps/app-simple/src'
+----
+
+`swc-loader` doesn't seem to be using `tsconfig.json`. But it's an issue with webpack configuration fixed with:
+----
+resolve: {
+  extensions: [".ts", ".tsx", ".js", ".jsx"],
+},
+----
