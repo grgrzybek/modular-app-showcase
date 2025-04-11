@@ -12,6 +12,7 @@ export default {
   entry: {
     "main": "./src/index.ts"
   },
+  cache: false,
   output: {
     clean: false
   },
@@ -25,6 +26,35 @@ export default {
       ]
     })
   ],
+  optimization: {
+    splitChunks: {
+      chunks: "async",
+      // webpack has two default cache groups
+      // see github.com/webpack/webpack/lib/config/defaults.js - applyOptimizationDefaults()
+      cacheGroups: {
+        default: {
+          // name: "mAin",
+          idHint: "ddd",
+          priority: -200
+        },
+        defaultVendors: {
+          idHint: "vvv",
+          // test: /\/node_modules\//,
+          test: (m) => {
+            console.info("GRGR")
+            // console.info(" - ", m.context, m.rawRequest, m.resource)
+            console.info(" - ", m.resource)
+            return true
+          },
+          priority: -100
+        },
+        bla: {
+          idHint: "react",
+          test: /\/node_modules\/react/,
+        }
+      }
+    }
+  },
   module: {
     rules: [
       {
