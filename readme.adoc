@@ -170,3 +170,5 @@ After switching from `import` to `import()` webpack used https://webpack.js.org/
 We can also (I guess) do the same with explicit usage of https://webpack.js.org/plugins/split-chunks-plugin/[SplitChunksPlugin].
 
 SplitChunksPlugin can be used directly in `plugins` configuration array, but also via `optimization.splitChunks`.
+
+https://webpack.js.org/guides/code-splitting/#dynamic-imports[Dynamic imports] is the recommended (?) way to introduce code splitting.
