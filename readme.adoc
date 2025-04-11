@@ -146,6 +146,23 @@ resolve: {
 },
 ----
 
+== Webpack CSS support
+
+Adding `style-loader` and `css-loader` **and** importing any CSS file into JS code adds 10 more _modules_ into `__webpack_modules__` hash:
+
+----
+/***/ "../../node_modules/css-loader/dist/cjs.js!./src/index.css":
+/***/ "../../node_modules/css-loader/dist/runtime/api.js":
+/***/ "../../node_modules/css-loader/dist/runtime/noSourceMaps.js":
+/***/ "../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js":
+/***/ "../../node_modules/style-loader/dist/runtime/insertBySelector.js":
+/***/ "../../node_modules/style-loader/dist/runtime/insertStyleElement.js":
+/***/ "../../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js":
+/***/ "../../node_modules/style-loader/dist/runtime/styleDomAPI.js":
+/***/ "../../node_modules/style-loader/dist/runtime/styleTagTransform.js":
+/***/ "./src/index.css":
+----
+
 == Webpack code splitting
 
 When there was `index.ts` that imported `bootstrap.tsx` there was just one asset produced - `main.js`.

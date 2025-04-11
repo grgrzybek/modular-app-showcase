@@ -12,6 +12,9 @@ export default {
   entry: {
     "main": "./src/index.ts"
   },
+  output: {
+    clean: false
+  },
   resolve: {
     extensions: [ ".ts", ".tsx", ".js", ".jsx" ],
   },
@@ -42,6 +45,10 @@ export default {
             }
           }
         }
+      },
+      {
+        test: /\.css$/,
+        use: [ "style-loader", "css-loader" ]
       }
     ]
   },
