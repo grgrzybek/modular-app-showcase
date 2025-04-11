@@ -14,7 +14,8 @@ export default {
   },
   cache: false,
   output: {
-    clean: false
+    clean: false,
+    filename: "static/js/[name].js"
   },
   resolve: {
     extensions: [ ".ts", ".tsx", ".js", ".jsx" ],
@@ -68,6 +69,16 @@ export default {
               target: "esnext"
             }
           }
+        }
+      },
+      {
+        test: /\.woff2?$/,
+        type: "asset/resource",
+        generator: {
+          // we could achieve similar result with output.assetModuleFilename
+          publicPath: "static/fonts/",
+          outputPath: "static/fonts",
+          filename: "[name][ext]"
         }
       },
       {

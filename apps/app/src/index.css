@@ -1,4 +1,9 @@
 :where(:root) {
   --pf-v5-global--FontSize--md: 12pt;
-  --pf-v5-global--FontFamily--text: sans-serif;
+  /*--pf-v5-global--FontFamily--text: sans-serif;*/
+}
+div.component-wrapper:has(#c1) {
+  background-color: #999;
+  color: white;
+  font-weight: bold;
 }

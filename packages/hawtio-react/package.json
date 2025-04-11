@@ -2,11 +2,17 @@
   "name": "@showcase/hawtio-react",
   "version": "1.0.0",
   "type": "module",
+  "files": [
+    "dist"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.cts",
       "import": "./dist/index.cjs",
       "default": "./dist/index.cjs"
+    },
+    "./styles": {
+      "default": "./dist/index.css"
     }
   },
   "dependencies": {
