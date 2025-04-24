@@ -2,6 +2,8 @@
 
 import path from "node:path"
 import CopyPlugin from "copy-webpack-plugin"
+// import IntrospectionPlugin from "../../plugins/introspection-webpack-plugin/plugin.js"
+import InvestigationPlugin from "../../plugins/investigation-webpack-plugin/plugin.js"
 
 const outputPath = path.resolve("dist")
 
@@ -25,27 +27,41 @@ export default {
       patterns: [
         { from: "**/*", to: outputPath, context: "public/" }
       ]
-    })
+    }),
+    // new IntrospectionPlugin({}),
+    new InvestigationPlugin({})
   ],
   optimization: {
     splitChunks: {
+      // see https://webpack.js.org/plugins/split-chunks-plugin/#configuration
       chunks: "async",
-      // webpack has two default cache groups
+      // webpack has two cache groups: default (with hint="") and defaultVendors (with hint="vendors")
       // see github.com/webpack/webpack/lib/config/defaults.js - applyOptimizationDefaults()
       cacheGroups: {
         default: {
-          // name: "mAin",
-          idHint: "ddd",
-          priority: -200
+          reuseExistingChunk: true,
+          name: "main",
+          idHint: "default",
+           priority: -15
+        },
+        react: {
+          reuseExistingChunk: true,
+          test: /\/node_modules\/react*/,
+          name: "react",
+          idHint: "react"
+        },
+        patternfly: {
+          reuseExistingChunk: true,
+          test: /\/node_modules\/@patternfly/,
+          name: "patternfly",
+          idHint: "pf"
         },
         defaultVendors: {
-          idHint: "vvv",
+          reuseExistingChunk: true,
           test: /\/node_modules\//,
-          priority: -100
-        },
-        bla: {
-          idHint: "react",
-          test: /\/node_modules\/react/,
+          name: "other",
+          idHint: "other",
+          priority: -10
         }
       }
     }

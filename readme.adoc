@@ -194,6 +194,103 @@ When there was `index.ts` that imported `bootstrap.tsx` there was just one asset
 After switching from `import` to `import()` webpack used https://webpack.js.org/guides/code-splitting/[code splitting].
 We can also (I guess) do the same with explicit usage of https://webpack.js.org/plugins/split-chunks-plugin/[SplitChunksPlugin].
 
-SplitChunksPlugin can be used directly in `plugins` configuration array, but also via `optimization.splitChunks`.
+`SplitChunksPlugin` can be used directly in `plugins` configuration array, but also via `optimization.splitChunks`.
 
 https://webpack.js.org/guides/code-splitting/#dynamic-imports[Dynamic imports] is the recommended (?) way to introduce code splitting.
+
+Many plugins don't need to be declared in `options.plugin`, because there's this special class in webpack itself, which passes options to plugins created by itself.
+
+It is:
+----
+new WebpackOptionsApply().process(options, compiler);
+----
+
+for example `optimization.splitChunks`:
+[,javascript]
+----
+if (options.optimization.splitChunks) {
+  const SplitChunksPlugin = require("./optimize/SplitChunksPlugin");
+  new SplitChunksPlugin(options.optimization.splitChunks).apply(compiler);
+}
+----
+
+Chunk loading itself is determined here:
+[,javascript]
+----
+if (typeof options.output.chunkFormat === "string") {
+	switch (options.output.chunkFormat) {
+		case "array-push": {
+			const ArrayPushCallbackChunkFormatPlugin = require("./javascript/ArrayPushCallbackChunkFormatPlugin");
+			new ArrayPushCallbackChunkFormatPlugin().apply(compiler);
+			break;
+		}
+		case "commonjs": {
+			const CommonJsChunkFormatPlugin = require("./javascript/CommonJsChunkFormatPlugin");
+			new CommonJsChunkFormatPlugin().apply(compiler);
+			break;
+		}
+		case "module": {
+			const ModuleChunkFormatPlugin = require("./esm/ModuleChunkFormatPlugin");
+			new ModuleChunkFormatPlugin().apply(compiler);
+			break;
+		}
+		default:
+			throw new Error(
+				`Unsupported chunk format '${options.output.chunkFormat}'.`
+			);
+	}
+}
+----
+
+At this stage of learning, I found that "modules" are generally individual JS files loaded from source, through ts-loader/swc-loader and from node_modules.
+
+See this "origin" of initial block:
+----
+/data/sources/github.com/grgrzybek/modular-app-showcase/node_modules/swc-loader/src/index.js??ruleSet[1].rules[0].use!/data/sources/github.com/grgrzybek/modular-app-showcase/apps/app/src/index.ts
+----
+
+then webpack starts with entry point (from options) which is an entry into "module graph".
+Then module graph is changed into chunk graph and each "async boundary" creates new chunk.
+
+with single `index.ts` doing `import('./bootstrap.tsx')` there's one boundary and if there are no further ``import()``s, then we have only two chunks from huge (2000+ for simple React + Patternfly app!).
+But then `compilation.hooks.optimizeChunks` comes into play!
+----
+taps = Array(5) [{…}, {…}, {…}, {…}, {…}]
+ 0 = Object {type: "sync", fn: ƒ, name: "EnsureChunkConditionsPlugin", stage: -10}
+ 1 = Object {type: "sync", fn: ƒ, name: "RemoveEmptyChunksPlugin", stage: -10}
+ 2 = Object {type: "sync", fn: ƒ, name: "MergeDuplicateChunksPlugin", stage: -10}
+ 3 = Object {type: "sync", fn: ƒ, name: "SplitChunksPlugin", stage: 10}
+ 4 = Object {type: "sync", fn: ƒ, name: "RemoveEmptyChunksPlugin", stage: 10}
+----
+
+and in my experimental `optimization.splitChunks` configuration, I'm getting 5 chunks instead of 2!
+
+`SplitChunksPlugin` is doing the heavy part - it takes `chunkGraph` and `moduleGraph` from the `compilation` object.
+
+While there are only 2 chunks, there 2646 modules before splitting.
+
+addModuleToChunksInfoMap() in webpack/lib/optimize/SplitChunksPlugin.js seems to be doing the work of moving a "module" into a chunk - if conditions match.
+
+for each module, SplitChunksPlugin calls:
+[,javascript]
+----
+const cacheGroups = this.options.getCacheGroups(module, context);
+----
+
+which deals directly with configuration and uses `test` to verify which chunk group should be used for given module.
+
+After splitting, chunksInfoMap is:
+----
+result = Map(4) {"default name:main" => Object {modules: SortableSet(2607), cacheGroup: {…},... size: 4}
+ size = 4
+ [[Entries]] = Array(4)
+  0 = {"default name:main" => Object} {key: "default name:main", value: {…}}
+  1 = {"react name:react" => Object} {key: "react name:react", value: {…}}
+  2 = {"defaultVendors name:other" => Object} {key: "defaultVendors name:other", value: {…}}
+  3 = {"patternfly name:patternfly" => Object} {key: "patternfly name:patternfly", value: {…}}
+----
+
+Then optimized chunks may be discarded depending on configuration (size, count, ...).
+After splitting there's a lot happening in the plugin to alter existing chunks in `compilation` object.
+
+Split chunks are passed again through `Compilation.hooks.afterOptimizeChunks`.
