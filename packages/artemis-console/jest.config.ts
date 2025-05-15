@@ -15,7 +15,12 @@ const config: JestConfigWithTsJest = {
       diagnostics: {
         pretty: true
       }
-    }]
+    }],
+    // // see https://jestjs.io/docs/code-transformation#transforming-images-to-their-path
+    // "^.*\\.css$": "<rootDir>/src/__mocks__/fileTransformer.cjs"
+  },
+  moduleNameMapper: {
+    "^.*\\.css$": "<rootDir>/src/__mocks__/fileModule.cjs"
   },
   setupFilesAfterEnv: [ "<rootDir>/src/__testconfig__/setup.ts" ]
 }

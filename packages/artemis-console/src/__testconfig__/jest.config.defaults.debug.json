@@ -1,0 +1,163 @@
+{
+  "configs": [
+    {
+      "automock": false,
+      "cache": true,
+      "cacheDirectory": "/tmp/jest_hid",
+      "clearMocks": false,
+      "collectCoverageFrom": [],
+      "coverageDirectory": "/data/sources/github.com/grgrzybek/modular-app-showcase/packages/artemis-console/coverage",
+      "coveragePathIgnorePatterns": [
+        "/node_modules/"
+      ],
+      "cwd": "/data/sources/github.com/grgrzybek/modular-app-showcase/packages/artemis-console",
+      "detectLeaks": false,
+      "detectOpenHandles": false,
+      "errorOnDeprecated": false,
+      "extensionsToTreatAsEsm": [],
+      "fakeTimers": {
+        "enableGlobally": false
+      },
+      "forceCoverageMatch": [],
+      "globals": {},
+      "haste": {
+        "computeSha1": false,
+        "enableSymlinks": false,
+        "forceNodeFilesystemAPI": true,
+        "throwOnModuleCollision": false
+      },
+      "id": "413ed8fd2e6e36d7903a61710f5bb77d",
+      "injectGlobals": true,
+      "moduleDirectories": [
+        "node_modules"
+      ],
+      "moduleFileExtensions": [
+        "js",
+        "mjs",
+        "cjs",
+        "jsx",
+        "ts",
+        "tsx",
+        "json",
+        "node"
+      ],
+      "moduleNameMapper": [
+        [
+          "^.*\\.css$",
+          "/data/sources/github.com/grgrzybek/modular-app-showcase/packages/artemis-console/src/__test__/fileModule.cjs"
+        ]
+      ],
+      "modulePathIgnorePatterns": [],
+      "openHandlesTimeout": 1000,
+      "prettierPath": "prettier",
+      "resetMocks": false,
+      "resetModules": false,
+      "restoreMocks": false,
+      "rootDir": "/data/sources/github.com/grgrzybek/modular-app-showcase/packages/artemis-console",
+      "roots": [
+        "/data/sources/github.com/grgrzybek/modular-app-showcase/packages/artemis-console"
+      ],
+      "runner": "/data/sources/github.com/grgrzybek/modular-app-showcase/node_modules/jest-runner/build/index.js",
+      "sandboxInjectedGlobals": [],
+      "setupFiles": [],
+      "setupFilesAfterEnv": [
+        "/data/sources/github.com/grgrzybek/modular-app-showcase/packages/artemis-console/src/__test__/setup.ts"
+      ],
+      "skipFilter": false,
+      "slowTestThreshold": 5,
+      "snapshotFormat": {
+        "escapeString": false,
+        "printBasicPrototype": false
+      },
+      "snapshotSerializers": [],
+      "testEnvironment": "/data/sources/github.com/grgrzybek/modular-app-showcase/node_modules/jest-environment-node/build/index.js",
+      "testEnvironmentOptions": {},
+      "testLocationInResults": false,
+      "testMatch": [
+        "**/__tests__/**/*.[jt]s?(x)",
+        "**/?(*.)+(spec|test).[tj]s?(x)"
+      ],
+      "testPathIgnorePatterns": [
+        "/node_modules/"
+      ],
+      "testRegex": [],
+      "testRunner": "/data/sources/github.com/grgrzybek/modular-app-showcase/node_modules/jest-circus/runner.js",
+      "transform": [
+        [
+          "^.*\\.tsx?$",
+          "/data/sources/github.com/grgrzybek/modular-app-showcase/node_modules/ts-jest/dist/index.js",
+          {
+            "diagnostics": {
+              "pretty": true
+            }
+          }
+        ],
+        [
+          "^.*\\.css$",
+          "/data/sources/github.com/grgrzybek/modular-app-showcase/packages/artemis-console/src/__test__/fileTransformer.cjs",
+          {}
+        ]
+      ],
+      "transformIgnorePatterns": [
+        "/node_modules/",
+        "\\.pnp\\.[^\\/]+$"
+      ],
+      "watchPathIgnorePatterns": []
+    }
+  ],
+  "globalConfig": {
+    "bail": 0,
+    "changedFilesWithAncestor": false,
+    "ci": false,
+    "collectCoverage": false,
+    "collectCoverageFrom": [],
+    "coverageDirectory": "/data/sources/github.com/grgrzybek/modular-app-showcase/packages/artemis-console/coverage",
+    "coverageProvider": "babel",
+    "coverageReporters": [
+      "json",
+      "text",
+      "lcov",
+      "clover"
+    ],
+    "detectLeaks": false,
+    "detectOpenHandles": false,
+    "errorOnDeprecated": false,
+    "expand": false,
+    "findRelatedTests": false,
+    "forceExit": false,
+    "json": false,
+    "lastCommit": false,
+    "listTests": false,
+    "logHeapUsage": false,
+    "maxConcurrency": 5,
+    "maxWorkers": 15,
+    "noStackTrace": false,
+    "nonFlagArgs": [],
+    "notify": false,
+    "notifyMode": "failure-change",
+    "onlyChanged": false,
+    "onlyFailures": false,
+    "openHandlesTimeout": 1000,
+    "passWithNoTests": false,
+    "projects": [],
+    "rootDir": "/data/sources/github.com/grgrzybek/modular-app-showcase/packages/artemis-console",
+    "runTestsByPath": false,
+    "seed": -1727817707,
+    "skipFilter": false,
+    "snapshotFormat": {
+      "escapeString": false,
+      "printBasicPrototype": false
+    },
+    "testFailureExitCode": 1,
+    "testPathPattern": "",
+    "testSequencer": "/data/sources/github.com/grgrzybek/modular-app-showcase/node_modules/@jest/test-sequencer/build/index.js",
+    "updateSnapshot": "new",
+    "useStderr": false,
+    "verbose": true,
+    "watch": false,
+    "watchAll": false,
+    "watchman": true,
+    "workerThreads": false
+  },
+  "version": "29.7.0"
+}

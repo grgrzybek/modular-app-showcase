@@ -1,11 +1,7 @@
 import { describe, test, expect } from "@jest/globals"
-import { userService } from "./services"
+import { userService } from "@showcase/hawtio-react"
 
-describe("Core Services tests", () => {
-
-  test("User Service test", () => {
-    expect(userService.id()).toBe("userService")
-  })
+describe("Core Services from hawtio-react tests", () => {
 
   test("User Service fetch test", async () => {
     await userService.fetchUser()

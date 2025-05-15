@@ -1,5 +1,5 @@
 {
-  "name": "@showcase/hawtio-react",
+  "name": "@showcase/artemis-console",
   "version": "1.0.0",
   "type": "module",
   "files": [
@@ -26,6 +26,7 @@
     "@patternfly/react-styles": "~5.4.1",
     "@patternfly/react-table": "~5.4.16",
     "@patternfly/react-tokens": "~5.4.1",
+    "@showcase/hawtio-react": "workspace:*",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
