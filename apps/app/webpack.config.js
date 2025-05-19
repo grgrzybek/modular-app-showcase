@@ -15,11 +15,16 @@
  */
 
 import path from "node:path"
+import { fileURLToPath } from "url"
+
 import CopyPlugin from "copy-webpack-plugin"
 // import IntrospectionPlugin from "../../plugins/introspection-webpack-plugin/plugin.js"
 import InvestigationPlugin from "../../plugins/investigation-webpack-plugin/plugin.js"
 
 const outputPath = path.resolve("dist")
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export default {
   mode: "development",
@@ -35,6 +40,13 @@ export default {
   },
   resolve: {
     extensions: [ ".ts", ".tsx", ".js", ".jsx" ],
+    alias: {
+      // because this app built with webpack used:
+      //  - "../../node_modules/react-router/dist/development/chunk-D4RADZKF.mjs"
+      // and @showcase/hawtio-react built with tsup used require("react-router") turned into:
+      //  - "../../node_modules/react-router/dist/development/index.js"
+      "react-router": path.resolve(__dirname, "../../node_modules/react-router")
+    }
   },
   plugins: [
     new CopyPlugin({

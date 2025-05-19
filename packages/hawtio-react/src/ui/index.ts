@@ -14,4 +14,8 @@
  * limitations under the License.
  */
 
+import React from 'react'
+
 export * from "./Main"
+
+export type ReactChildren = { children: React.ReactNode }

@@ -18,11 +18,18 @@ import React from "react"
 import ReactDOM from "react-dom/client"
 
 import { Main } from "@showcase/hawtio-react"
+import { Component1 } from "./ui/Component1"
+import { NavLink } from 'react-router'
 
 const root = ReactDOM.createRoot(document.getElementById("app") as HTMLElement)
 root.render(
-    <Main>
-      <span id="c1">Hello!</span>
-      <span>Hello!</span>
-    </Main>
+    <React.StrictMode>
+      {/* We can pass a React component function as function itself - to be "instantiated" by React when needed */}
+      <Main components={[Component1]}>
+        <span>Hello!</span>
+        <span id="c1">Hello!</span>
+        {/* NavLink component requires parent BrowserRouter and it was failing without webpacks resolve.alias config (ChatGPT helped) */}
+        <NavLink to="/login">Login page (as child)</NavLink>
+      </Main>
+    </React.StrictMode>
 )

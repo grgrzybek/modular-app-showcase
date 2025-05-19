@@ -14,36 +14,36 @@
  * limitations under the License.
  */
 
-import { Button, Masthead, MastheadMain, MastheadToggle, Page } from "@patternfly/react-core"
-import { BarsIcon } from "@patternfly/react-icons"
-import React, { ReactNode } from "react"
+import React, { type ReactNode } from "react"
+import { BrowserRouter, Route, Routes } from 'react-router'
+
+import { MainPage } from "./page/HawtioPage"
+
 import "./Main.css"
+import { LoginPage } from './auth/LoginPage'
 
-type Props = { children: ReactNode }
+/**
+ * The _main_ react component that should be imported by _applications_ that use this _library_. Imported
+ * `<Main>` component should be top level or wrapped in `<React.StrictMode>` and passed to
+ * `ReactDOM.createRoot().render()`.
+ *
+ * This _main_ component is already wrapped inside the router.
+ *
+ * @param children
+ * @param components
+ * @constructor
+ */
 
-const Main: React.FunctionComponent<Props> = ({ children }) => {
-  const [sidebarOpen, setSidebarOpen] = React.useState(true);
-
-  const header = (
-      <Masthead>
-        <MastheadToggle>
-          <Button variant="plain" onClick={() => setSidebarOpen(!sidebarOpen)} aria-label="Global navigation">
-            <BarsIcon/>
-          </Button>
-        </MastheadToggle>
-        <MastheadMain>Hawtio React experiments</MastheadMain>
-      </Masthead>
-  )
-  const boxed: ReactNode[] = !Array.isArray(children)
-      ? [ <div className="component-wrapper" key="k0">{children}</div> ]
-      : children.map((c, idx) => (<div className="component-wrapper" key={"k" + idx}>{c}</div>));
+const Main: React.FunctionComponent<{ children?: ReactNode, components: React.FC[] }> = ({ children, components = [] }) => {
 
   return (
-      <React.StrictMode>
-        <Page mainContainerId={"app"} header={header}>
-          {boxed}
-        </Page>
-      </React.StrictMode>
+      <BrowserRouter>
+        <Routes>
+          <Route index element={<MainPage children={children} components={components}/>}/>
+          <Route path="login" element={<LoginPage/>}/>
+          <Route path="about" element={<div>about</div>}/>
+        </Routes>
+      </BrowserRouter>
   )
 }
 

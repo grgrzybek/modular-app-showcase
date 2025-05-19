@@ -1235,7 +1235,7 @@ __metadata:
   dependencies:
     "@swc/core": "npm:^1.11.20"
     "@types/react": "npm:^18.3.20"
-    "@types/react-dom": "npm:^18.3.6"
+    "@types/react-dom": "npm:^18.3.7"
     copy-webpack-plugin: "npm:^13.0.0"
     css-loader: "npm:^7.1.2"
     react: "npm:^18.3.1"
@@ -1262,7 +1262,7 @@ __metadata:
     "@showcase/hawtio-react": "workspace:*"
     "@swc/core": "npm:^1.11.20"
     "@types/react": "npm:^18.3.20"
-    "@types/react-dom": "npm:^19.1.5"
+    "@types/react-dom": "npm:^18.3.7"
     copy-webpack-plugin: "npm:^13.0.0"
     css-loader: "npm:^7.1.2"
     react: "npm:^18.3.1"
@@ -1290,12 +1290,13 @@ __metadata:
     "@showcase/hawtio-react": "workspace:*"
     "@types/express": "npm:^5"
     "@types/react": "npm:^18.3.20"
-    "@types/react-dom": "npm:^18.3.6"
+    "@types/react-dom": "npm:^18.3.7"
     express: "npm:^5.1.0"
     jest: "npm:^29.7.0"
     jest-environment-jsdom: "npm:^29.7.0"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
+    react-router: "npm:^7.6.0"
     ts-jest: "npm:^29.3.2"
     ts-node: "npm:^10.9.2"
     tsup: "npm:^8.4.0"
@@ -1315,7 +1316,7 @@ __metadata:
     "@patternfly/react-tokens": "npm:~5.4.1"
     "@types/express": "npm:^5"
     "@types/react": "npm:^18.3.20"
-    "@types/react-dom": "npm:^19.1.5"
+    "@types/react-dom": "npm:^18.3.7"
     express: "npm:^5.1.0"
     jest: "npm:^29.7.0"
     jest-environment-jsdom: "npm:^29.7.0"
@@ -1788,21 +1789,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^18.3.6":
-  version: 18.3.6
-  resolution: "@types/react-dom@npm:18.3.6"
+"@types/react-dom@npm:^18.3.7":
+  version: 18.3.7
+  resolution: "@types/react-dom@npm:18.3.7"
   peerDependencies:
     "@types/react": ^18.0.0
-  checksum: 10c0/e77ac076096bd4b2e0a99130c47959762a927e536b83412e470ac5198d4b8d111cfd787ff2ab7c22bc39c114c0c5fef80046ea0cccb02a655e021a435859314a
-  languageName: node
-  linkType: hard
-
-"@types/react-dom@npm:^19.1.5":
-  version: 19.1.5
-  resolution: "@types/react-dom@npm:19.1.5"
-  peerDependencies:
-    "@types/react": ^19.0.0
-  checksum: 10c0/2a29e77cf6bb6e9f57bcfa54509c216cad2e16e244f0bd56369966ec88c072b9c91f6011d14f9e18fbfe2b801b18b86f616de75e5c8aef0be73c1f74abb33b49
+  checksum: 10c0/8bd309e2c3d1604a28a736a24f96cbadf6c05d5288cfef8883b74f4054c961b6b3a5e997fd5686e492be903c8f3380dba5ec017eff3906b1256529cd2d39603e
   languageName: node
   linkType: hard
 
