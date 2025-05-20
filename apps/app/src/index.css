@@ -23,3 +23,7 @@ div.component-wrapper:has(#c1) {
   color: white;
   font-weight: bold;
 }
+div.initialization {
+  padding: 1rem;
+  color: #888
+}

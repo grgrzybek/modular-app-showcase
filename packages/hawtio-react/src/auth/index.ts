@@ -14,30 +14,4 @@
  * limitations under the License.
  */
 
-import React, { useEffect, useState } from "react"
-
-import { useInRouterContext, useNavigate } from 'react-router'
-
-const LoginPage: React.FunctionComponent = () => {
-
-  const [ user, ] = useState("grgr")
-  const navigate = useNavigate()
-  const inRouter = useInRouterContext()
-
-  console.info("In router context:", inRouter)
-
-  if (user) {
-    console.info("User", user, "already logged in")
-    useEffect(() => {
-      navigate("/")
-    }, []);
-  }
-
-  return (
-      <>
-        <div>Login page ...</div>
-      </>
-  )
-}
-
-export { LoginPage }
+export * from "@src/auth-service"

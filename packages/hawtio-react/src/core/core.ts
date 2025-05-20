@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import React from 'react'
-import { NavLink } from 'react-router'
-
-const Component1: React.FC = () => {
-
-  console.info("Rendering <Component1 />")
-
-  return (
-      <NavLink to="/login">Login page (as component)</NavLink>
-  )
+class HawtioCore {
+  public async initialize(): Promise<boolean> {
+    return new Promise((resolve, _reject) => {
+      setTimeout(() => {
+        resolve(true)
+      }, 1000)
+    })
+  }
 }
 
-export { Component1 }
+const hawtio = new HawtioCore()
+
+export { hawtio }

@@ -16,8 +16,11 @@
 
 import React, { ReactNode } from "react"
 
-import { Button, Masthead, MastheadMain, MastheadToggle, Page } from "@patternfly/react-core"
+import { Button, Masthead, MastheadContent, MastheadMain, MastheadToggle, Page } from "@patternfly/react-core"
 import { BarsIcon } from "@patternfly/react-icons"
+
+import { useApp } from '@src/ui/context'
+import { C3, C4 } from '@src/ui/page/internal'
 
 /**
  * This component accepts child components using two methods:
@@ -33,10 +36,15 @@ import { BarsIcon } from "@patternfly/react-icons"
  * @param components
  * @constructor
  */
-const MainPage: React.FunctionComponent<{children: ReactNode, components: React.FC[]}> = ({ children, components = [] }) => {
+const HawtioPage: React.FunctionComponent<{children: ReactNode, components: React.FC[]}> = ({ children, components = [] }) => {
   const [sidebarOpen, setSidebarOpen] = React.useState(true);
 
   console.info("Rendering <MainPage />")
+
+  const { user } = useApp()
+
+  // we could use https://18.react.dev/reference/react/use (no longer experimental in React 19)
+  // to fetch configuration / login status and render something in <Suspense> while waiting for necessary configuration
 
   const header = (
       <Masthead>
@@ -46,6 +54,7 @@ const MainPage: React.FunctionComponent<{children: ReactNode, components: React.
           </Button>
         </MastheadToggle>
         <MastheadMain>Hawtio React experiments</MastheadMain>
+        <MastheadContent>{user}</MastheadContent>
       </Masthead>
   )
 
@@ -54,10 +63,39 @@ const MainPage: React.FunctionComponent<{children: ReactNode, components: React.
 
   return (
       <Page mainContainerId={"app"} header={header}>
+        {<div>Components from children</div>}
         {boxed}
+        {<div>Components from functions</div>}
         {components.map((C, idx) => (<C key={idx} />))}
+        {<div>Components internal to HawtioPage</div>}
+        <C3 />
+        <C4 />
+        <div className="component-wrapper"><SimpleLogin />{" "}<SimpleLogout /></div>
       </Page>
   )
 }
 
-export { MainPage }
+const SimpleLogin: React.FC = () => {
+
+  const { login } = useApp()
+
+  return (
+      <Button variant="primary" size="sm" onClick={() => { login("Grzegorz" ) }}>Login as Grzegorz</Button>
+  )
+}
+
+const SimpleLogout: React.FC = () => {
+  const { logout } = useApp()
+
+  return (
+      <Button variant="primary" size="sm"
+              onMouseEnter={() => { console.info("Mouse enter (Patternfly)")}}
+              onMouseLeave={() => { console.info("Mouse leave (Patternfly)")}}
+              onMouseDown={() => { console.info("Mouse down (Patternfly)")}}
+              onMouseUp={() => { console.info("Mouse up (Patternfly)")}}
+              onClick={() => { console.info("Mouse click (Patternfly)"); logout()}}
+      >Logout</Button>
+  )
+}
+
+export { HawtioPage }

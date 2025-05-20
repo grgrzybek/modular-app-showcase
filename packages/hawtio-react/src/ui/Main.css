@@ -18,3 +18,19 @@ div.component-wrapper {
   border: 1px solid #ddd;
   padding: 2px; margin: 2px;
 }
+
+button.bt-test {
+  border: 1px solid black;
+  background-color: #dddddd;
+  color: black
+}
+button.bt-test:hover {
+  background-color: #999;
+  color: white
+}
+button.bt-test:active {
+  background-color: #444
+}
+button.bt-test:focus {
+  border: 1px solid red
+}

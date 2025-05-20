@@ -14,16 +14,19 @@
  * limitations under the License.
  */
 
-import React from 'react'
-import { NavLink } from 'react-router'
+import { useEffect, useState } from 'react'
 
-const Component1: React.FC = () => {
+/**
+ * React hook to manage currently logged in user
+ */
+const useUser = () => {
+  const [ user, setUser ] = useState(null)
 
-  console.info("Rendering <Component1 />")
+  useEffect(() => {
+    console.info("User has changed:", user)
+  }, [user])
 
-  return (
-      <NavLink to="/login">Login page (as component)</NavLink>
-  )
+  return { user, setUser }
 }
 
-export { Component1 }
+export { useUser }

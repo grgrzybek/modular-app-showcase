@@ -24,6 +24,10 @@
     /* Modules */
     "module": "ESNext",
     "moduleResolution": "bundler",
+    "baseUrl": "./",
+    "paths": {
+      "@src/*": [ "./src/*" ]
+    },
 
     /* JavaScript Support */
     "allowJs": false,

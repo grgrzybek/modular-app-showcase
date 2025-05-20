@@ -17,10 +17,11 @@
 import React, { type ReactNode } from "react"
 import { BrowserRouter, Route, Routes } from 'react-router'
 
-import { MainPage } from "./page/HawtioPage"
+import "@src/ui/Main.css"
 
-import "./Main.css"
-import { LoginPage } from './auth/LoginPage'
+import { HawtioPage } from "@src/ui/page/HawtioPage"
+import { HawtioLogin } from "@src/ui/auth/HawtioLogin"
+import { AppProvider } from "@src/ui/context"
 
 /**
  * The _main_ react component that should be imported by _applications_ that use this _library_. Imported
@@ -36,14 +37,19 @@ import { LoginPage } from './auth/LoginPage'
 
 const Main: React.FunctionComponent<{ children?: ReactNode, components: React.FC[] }> = ({ children, components = [] }) => {
 
+  // https://18.react.dev/learn/passing-data-deeply-with-context
+  // Context lets a parent—even a distant one!—provide some data to the entire tree inside of it.
+
   return (
-      <BrowserRouter>
-        <Routes>
-          <Route index element={<MainPage children={children} components={components}/>}/>
-          <Route path="login" element={<LoginPage/>}/>
-          <Route path="about" element={<div>about</div>}/>
-        </Routes>
-      </BrowserRouter>
+      <AppProvider>
+        <BrowserRouter basename={"/hawtio"}>
+          <Routes>
+            <Route index element={<HawtioPage children={children} components={components}/>}/>
+            <Route path="login" element={<HawtioLogin/>}/>
+            <Route path="about" element={<div>about</div>}/>
+          </Routes>
+        </BrowserRouter>
+      </AppProvider>
   )
 }
 

@@ -15,7 +15,7 @@
  */
 
 import { describe, test, expect } from "@jest/globals"
-import { userService } from "./services"
+import { userService } from "@src/core/services"
 
 describe("Core Services tests", () => {
 

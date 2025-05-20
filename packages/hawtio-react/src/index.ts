@@ -14,5 +14,5 @@
  * limitations under the License.
  */
 
-export * from "./ui"
-export * from "./core"
+export * from "@src/ui"
+export * from "@src/core"

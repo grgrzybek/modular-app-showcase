@@ -19,7 +19,7 @@ import { fileURLToPath } from "url"
 
 import CopyPlugin from "copy-webpack-plugin"
 // import IntrospectionPlugin from "../../plugins/introspection-webpack-plugin/plugin.js"
-import InvestigationPlugin from "../../plugins/investigation-webpack-plugin/plugin.js"
+// import InvestigationPlugin from "../../plugins/investigation-webpack-plugin/plugin.js"
 
 const outputPath = path.resolve("dist")
 
@@ -55,7 +55,7 @@ export default {
       ]
     }),
     // new IntrospectionPlugin({}),
-    new InvestigationPlugin({})
+    // new InvestigationPlugin({})
   ],
   optimization: {
     splitChunks: {
@@ -130,7 +130,10 @@ export default {
     ]
   },
   devServer: {
-    static: "./public",
+    static: {
+      directory: "./public",
+      publicPath: "/hawtio"
+    },
     port: 3100,
     hot: false,
     liveReload: false,
@@ -143,7 +146,44 @@ export default {
       logging: "verbose"
     },
     devMiddleware: {
-      writeToDisk: true
+      writeToDisk: true,
+      publicPath: "/hawtio"
+    },
+    setupMiddlewares: (middlewares, server) => {
+      server.app.get("/", (_, res) => res.redirect(`/hawtio/`))
+      server.app.get("/hawtio$", (_, res) => res.redirect("/hawtio/"))
+
+      // single, unified "Authentication config" from Hawtio
+      server.app.get("/hawtio/auth/config", (_, res) => {
+        res.json(authConfig)
+      })
+
+      return middlewares
     }
   }
 }
+
+const authConfig = [
+  {
+    "method": "basic",
+    "realm": "Hawtio Realm"
+  },
+  {
+    "method": "oidc",
+    // TODO: more
+  },
+  {
+    "method": "form",
+    "url": "/hawtio/auth/login",
+    "type": "form",
+    "userField": "username",
+    "passwordField": "password"
+  },
+  {
+    "method": "form",
+    "url": "/hawtio/auth/login",
+    "type": "json",
+    "userField": "username",
+    "passwordField": "password"
+  }
+]

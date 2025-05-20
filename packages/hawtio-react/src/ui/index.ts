@@ -16,6 +16,6 @@
 
 import React from 'react'
 
-export * from "./Main"
+export * from "@src/ui/Main"
 
 export type ReactChildren = { children: React.ReactNode }
