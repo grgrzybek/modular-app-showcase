@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-import React, { ReactNode } from "react"
+import React, { ReactNode, useEffect } from "react"
 
 import { Button, Masthead, MastheadContent, MastheadMain, MastheadToggle, Page } from "@patternfly/react-core"
 import { BarsIcon } from "@patternfly/react-icons"
 
 import { useApp } from '@src/ui/context'
 import { C3, C4 } from '@src/ui/page/internal'
+import { useNavigate } from 'react-router'
 
 /**
  * This component accepts child components using two methods:
@@ -41,10 +42,43 @@ const HawtioPage: React.FunctionComponent<{children: ReactNode, components: Reac
 
   console.info("Rendering <MainPage />")
 
-  const { user } = useApp()
+  const { initialization, user, login } = useApp()
+  const navigate = useNavigate()
 
   // we could use https://18.react.dev/reference/react/use (no longer experimental in React 19)
   // to fetch configuration / login status and render something in <Suspense> while waiting for necessary configuration
+
+  // we can't have useEffect() within "if (!user) {}", because React will complain about different number of hooks
+  useEffect(() => {
+    fetch("user")
+        .then(r => {
+          if (r.ok) {
+            return r.json()
+          }
+          return null
+        })
+        .then(json => {
+          login(json)
+        })
+  }, []);
+  useEffect(() => {
+    if (!user) {
+      let navigation: NodeJS.Timeout
+      // (next tick if 0) with an option to clear the timeout to satisfy <React.StrictMode>
+      navigation = setTimeout(() => navigate("/login"), initialization ? 0 : 2000);
+      return () => {
+        if (navigation) {
+          clearTimeout(navigation)
+        }
+      }
+    }
+  }, [user]);
+
+  if (!user) {
+    return (<>
+      <div>Logging out in 2s...</div>
+    </>)
+  }
 
   const header = (
       <Masthead>

@@ -14,7 +14,22 @@
  * limitations under the License.
  */
 
+// My impression is that ordering the CSS imports here will lead to proper ordering of whatever webpack and its
+// loaders are doing.
+// However by default dynamic <style> elements are inserted into <head> and I found rules from "./index.css"
+// to be somewhere in the middle of Patternfly CSS - --pf-v5-global--FontSize--md was take from my CSS, but
+// --pf-v5-c-background-image--BackgroundSize--width was take from Patternfly
+//
+// even https://github.com/webpack-contrib/style-loader?tab=readme-ov-file#recommend
+// says that style-loader is only for development (even with the ordering problems?)
+// this is suggested in webpack.config.js:
+// use: [
+//   devMode ? "style-loader" : MiniCssExtractPlugin.loader,
+//   "css-loader"
+// ],
+
 import "@patternfly/react-core/dist/styles/base.css"
 import "@showcase/hawtio-react/styles"
 import "./index.css"
+
 import(/* webpackChunkName: "bootstrap" */"./bootstrap")

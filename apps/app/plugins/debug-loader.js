@@ -14,16 +14,6 @@
  * limitations under the License.
  */
 
-class HawtioCore {
-  public async initialize(): Promise<boolean> {
-    return new Promise((resolve, _reject) => {
-      setTimeout(() => {
-        resolve(true)
-      }, 300)
-    })
-  }
+export function pitch(remainingRequest, precedingRequest, data) {
+  console.info("[GRGR]", remainingRequest)
 }
-
-const hawtio = new HawtioCore()
-
-export { hawtio }

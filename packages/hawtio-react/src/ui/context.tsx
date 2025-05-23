@@ -19,12 +19,14 @@ import React, { createContext, ReactNode, useContext, useState } from 'react'
 // https://lovetrivedi.medium.com/unlocking-the-full-potential-of-react-context-with-custom-hooks-f3d7e3a3d403
 
 export type AppState = {
+  initialization: boolean
   user: string | null
   login: (user: string) => void
   logout: () => void
 }
 
 const AppContext = createContext<AppState>({
+  initialization: true,
   user: null,
   login: () => {},
   logout: () => {},
@@ -32,18 +34,28 @@ const AppContext = createContext<AppState>({
 
 export const AppProvider: React.FC<{children: ReactNode}> = ({ children }) => {
 
+  const [ initialization, setInitialization ] = useState(true)
   const [ user, setUser ] = useState<string | null>(null)
 
   const login = (user: string) => {
+    setInitialization(false)
     setUser(user)
   }
 
   const logout = () => {
-    setUser(null)
+    setInitialization(false)
+    fetch("logout", { method: "POST", body: JSON.stringify({}), headers: { "Content-Type": "application/json" } })
+        .then(r => {
+          if (r.ok) {
+            // HTTP == 200
+            setUser(null)
+          }
+        })
+        .catch(_e => {})
   }
 
   return (
-      <AppContext.Provider value={{ user, login, logout }}>
+      <AppContext.Provider value={{ initialization, user, login, logout }}>
         {children}
       </AppContext.Provider>
   )

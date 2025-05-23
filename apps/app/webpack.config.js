@@ -18,8 +18,11 @@ import path from "node:path"
 import { fileURLToPath } from "url"
 
 import CopyPlugin from "copy-webpack-plugin"
+import MiniCssExtractPlugin from "mini-css-extract-plugin"
 // import IntrospectionPlugin from "../../plugins/introspection-webpack-plugin/plugin.js"
 // import InvestigationPlugin from "../../plugins/investigation-webpack-plugin/plugin.js"
+
+import bodyParser from "body-parser"
 
 const outputPath = path.resolve("dist")
 
@@ -49,6 +52,9 @@ export default {
     }
   },
   plugins: [
+    new MiniCssExtractPlugin({
+      filename: "static/styles/[name].css"
+    }),
     new CopyPlugin({
       patterns: [
         { from: "**/*", to: outputPath, context: "public/" }
@@ -125,7 +131,11 @@ export default {
       },
       {
         test: /\.css$/,
-        use: [ "style-loader", "css-loader" ]
+        // use: [ { loader: "style-loader", options: { injectType: "singletonStyleTag" } }, "css-loader" ]
+        // use: [ "./plugins/debug-loader.js", { loader: "style-loader", options: {} }, "css-loader" ]
+        use: [ { loader: "style-loader", options: {} }, "css-loader" ]
+        // use: [ MiniCssExtractPlugin.loader, "css-loader" ]
+        // use: [ { loader: MiniCssExtractPlugin.loader, options: { publicPath: "static/styles" } }, "css-loader" ]
       }
     ]
   },
@@ -150,6 +160,8 @@ export default {
       publicPath: "/hawtio"
     },
     setupMiddlewares: (middlewares, server) => {
+      server.app.use(bodyParser.json())
+
       server.app.get("/", (_, res) => res.redirect(`/hawtio/`))
       server.app.get("/hawtio$", (_, res) => res.redirect("/hawtio/"))
 
@@ -158,10 +170,30 @@ export default {
         res.json(authConfig)
       })
 
+      server.app.get("/hawtio/login", (_, res) => res.redirect("/hawtio/"))
+      server.app.post("/hawtio/login", (req, res) => {
+        const { username, _password } = req.body
+        loggedInUser = username
+        res.status(202).end()
+      })
+      server.app.post("/hawtio/logout", (req, res) => {
+        loggedInUser = null
+        res.status(202).end()
+      })
+      server.app.get("/hawtio/user", (_, res) => {
+        if (loggedInUser) {
+          res.status(200).json(loggedInUser)
+        } else {
+          res.status(200).json(null)
+        }
+      })
+
       return middlewares
     }
   }
 }
+
+let loggedInUser = null
 
 const authConfig = [
   {
