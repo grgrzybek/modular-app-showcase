@@ -14,9 +14,24 @@
  * limitations under the License.
  */
 
+/*
+ * We can do this at JS level or CSS level - the webpack bundle will be the same. It's only a matter of where we
+ * will have this webpack "module":
+ *     !*** ../../node_modules/@patternfly/react-styles/css/components/BackgroundImage/background-image.css ***!
+ */
+@import "@patternfly/react-styles/css/components/BackgroundImage/background-image.css";
+
 :where(:root) {
   --pf-v5-global--FontSize--md: 12pt;
   /*--pf-v5-global--FontFamily--text: sans-serif;*/
+  --pf-v5-c-background-image--BackgroundSize--min-width: 200px;
+  --pf-v5-c-background-image--BackgroundSize--width: 100%;
+  --pf-v5-c-background-image--BackgroundSize--max-width: 1920px;
+}
+.pf-v5-c-background-image {
+  --pf-v5-c-background-image--BackgroundSize--min-width: 200px;
+  --pf-v5-c-background-image--BackgroundSize--width: 100%;
+  --pf-v5-c-background-image--BackgroundSize--max-width: 1920px;
 }
 div.component-wrapper:has(#c1) {
   background-color: #999;

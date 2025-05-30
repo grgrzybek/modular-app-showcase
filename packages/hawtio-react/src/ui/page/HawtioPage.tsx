@@ -58,7 +58,9 @@ const HawtioPage: React.FunctionComponent<{children: ReactNode, components: Reac
           return null
         })
         .then(json => {
-          login(json)
+          setTimeout(() => {
+            login(json)
+          }, 200)
         })
   }, []);
   useEffect(() => {
@@ -97,9 +99,9 @@ const HawtioPage: React.FunctionComponent<{children: ReactNode, components: Reac
 
   return (
       <Page mainContainerId={"app"} header={header}>
-        {<div>Components from children</div>}
+        <div>Components from children</div>
         {boxed}
-        {<div>Components from functions</div>}
+        <div>Components from functions</div>
         {components.map((C, idx) => (<C key={idx} />))}
         {<div>Components internal to HawtioPage</div>}
         <C3 />

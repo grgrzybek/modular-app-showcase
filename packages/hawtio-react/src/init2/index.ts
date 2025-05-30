@@ -14,16 +14,4 @@
  * limitations under the License.
  */
 
-class HawtioCore {
-  public async initialize(): Promise<boolean> {
-    return new Promise((resolve, _reject) => {
-      setTimeout(() => {
-        resolve(true)
-      }, 0)
-    })
-  }
-}
-
-const hawtio = new HawtioCore()
-
-export { hawtio }
+export * from "@src/core"

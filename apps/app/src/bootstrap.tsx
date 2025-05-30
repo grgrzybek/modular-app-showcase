@@ -15,15 +15,11 @@
  */
 
 import React from "react"
-import ReactDOM from "react-dom/client"
 
 import { hawtio, Main } from "@showcase/hawtio-react"
 import { Component1 } from "./ui/Component1"
 import { NavLink } from 'react-router'
-
-const root = ReactDOM.createRoot(document.getElementById("app") as HTMLElement)
-
-root.render(<div className="initialization">Waiting for hawtio.initialize() ...</div>)
+import { root } from "./initialization"
 
 hawtio.initialize().then(_ => {
   root.render(

@@ -17,8 +17,14 @@
 import { defineConfig } from "tsup"
 
 export default defineConfig({
-  entry: [ "src/index.ts" ],
+  entry: {
+    index: "src/index.ts",
+    init: "src/init/index.ts",
+    init2: "src/init2/index.ts"
+  },
   target: "esnext",
+  format: "esm",
+  splitting: false,
   dts: true,
   sourcemap: true,
   loader: {

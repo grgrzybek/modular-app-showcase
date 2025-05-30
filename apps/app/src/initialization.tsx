@@ -14,16 +14,12 @@
  * limitations under the License.
  */
 
-class HawtioCore {
-  public async initialize(): Promise<boolean> {
-    return new Promise((resolve, _reject) => {
-      setTimeout(() => {
-        resolve(true)
-      }, 0)
-    })
-  }
-}
+import React from "react"
+import ReactDOM from "react-dom/client"
+import { MainInit } from "@showcase/hawtio-react/init"
 
-const hawtio = new HawtioCore()
+const root = ReactDOM.createRoot(document.getElementById("app") as HTMLElement)
 
-export { hawtio }
+root.render(<MainInit />)
+
+export { root }

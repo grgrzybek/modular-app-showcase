@@ -30,6 +30,17 @@
 
 import "@patternfly/react-core/dist/styles/base.css"
 import "@showcase/hawtio-react/styles"
-import "./index.css"
+// // importing this before "./index.css" fixes things - this CSS won't be loaded after our override due to
+// // webpack module uniqueness!
+// import "@patternfly/react-styles/css/components/BackgroundImage/background-image.css"
 
+// import "./initialization"
+// import "./bootstrap"
+
+import(/* webpackChunkName: "initialization" */"./initialization")
 import(/* webpackChunkName: "bootstrap" */"./bootstrap")
+
+// this import being the last works ONLY if there's no dynamic import() with Patternfly components which load
+// own styles asynchronously. And it's enough to load Read with Module Federation (thus with the import("./bootstrap")
+// trick) and we get random order of dynamic <style> elements being inserted into <head>
+import "./index.css"

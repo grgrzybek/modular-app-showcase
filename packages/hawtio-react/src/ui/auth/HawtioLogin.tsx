@@ -42,7 +42,7 @@ import { WarningTriangleIcon } from '@patternfly/react-icons'
  */
 const HawtioLogin: React.FunctionComponent = () => {
 
-  const { user, login } = useApp()
+  const { initialization, user, login } = useApp()
   const navigate = useNavigate()
   // const inRouter = useInRouterContext()
 
@@ -61,7 +61,7 @@ const HawtioLogin: React.FunctionComponent = () => {
     if (user) {
       // think of effect function as "synchronization with external system used by this component"
       let navigation: NodeJS.Timeout
-      navigation = setTimeout(() => navigate("/"), 2000)
+      navigation = setTimeout(() => navigate("/"), 200)
       return () => {
         // think of effect cleanup function as "unsynchronization from external system used by this component"
         if (navigation) {
@@ -70,6 +70,12 @@ const HawtioLogin: React.FunctionComponent = () => {
       }
     }
   }, [user])
+
+  if (initialization) {
+    return (<>
+      <div>Still initializing</div>
+    </>)
+  }
   if (user) {
     return (<>
       <div>Already logged in as {user}. Redirecting in 2s...</div>
