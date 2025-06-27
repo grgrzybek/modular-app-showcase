@@ -1,0 +1,10 @@
+= How Frameworks deal with DOM updates
+
+Links:
+
+* https://www.youtube.com/watch?v=0C-y59betmY[The 3 Ways JavaScript Frameworks Render the DOM]
+* https://playground.solidjs.com/anonymous/ba6baa78-37b1-4a60-8a5f-ac34b0f47c6b[Replacement]
+* https://playground.solidjs.com/anonymous/4499a448-3a92-4886-94e2-52820817c208[Dirty Checking]
+* https://playground.solidjs.com/anonymous/b9cdee71-a908-4a00-a36e-b41838cb660c[Virtual DOM]
+* https://playground.solidjs.com/anonymous/e89f77f1-19b3-4286-8dff-31902de34bdd[Fine-Grained]
+
