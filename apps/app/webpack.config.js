@@ -207,6 +207,7 @@ const authConfig = [
   {
     "method": "form",
     "url": "/hawtio/auth/login",
+    "logoutUrl": "/hawtio/auth/logout",
     "type": "form",
     "userField": "username",
     "passwordField": "password"
@@ -214,6 +215,7 @@ const authConfig = [
   {
     "method": "form",
     "url": "/hawtio/auth/login",
+    "logoutUrl": "/hawtio/auth/logout",
     "type": "json",
     "userField": "username",
     "passwordField": "password"

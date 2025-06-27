@@ -18,6 +18,24 @@ import React, { createContext, ReactNode, useContext, useState } from 'react'
 
 // https://lovetrivedi.medium.com/unlocking-the-full-potential-of-react-context-with-custom-hooks-f3d7e3a3d403
 
+// we can declare everything separately, but it's better to group context/provider/hook in one place
+
+// 1. Initially we can have:
+//    const MyContext ctx = createContext()
+//    React component function "MyProvider" that returns <MyContext.Provider value={...}>{children}</MyContext.Provider>
+//     - the provider component contains any state that is provided down
+//     - the value provided should contain the state value and state altering function (or function that calls it)
+// 2. To make it easier to use (easier than useContext(MyContext)), we can create a useMy() hook that
+//    calls useContext(MyContext), and throws an exception if it's null (telling to wrap the component using "useMy()"
+//    within <MyProvider>>). This hook returns the context.
+
+// elements of the context are:
+// - a type that describes structure of context data
+// - an object returned from create() context
+// - .Provider field of the returned context to be used as wrapping element to provide values
+//   it's recommeded to create a React.FC for this provider which wraps children
+// - optional hook like useMyContext() which does useContext and checks if it's not null
+
 export type AppState = {
   initialization: boolean
   user: string | null

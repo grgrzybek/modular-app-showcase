@@ -51,7 +51,7 @@ export enum AuthenticationKind {
   oidc,
 
   /**
-   * Probably less standardized thatn `.well-known/openid-configuration`, but similar. We need to know the endpoints
+   * Probably less standardized than `.well-known/openid-configuration`, but similar. We need to know the endpoints
    * to use for OAuth2 auth.
    */
   oauth2
@@ -159,6 +159,4 @@ class AuthService implements IAuthService {
   }
 }
 
-const authService = new AuthService()
-
-export { authService }
+export const authService = new AuthService()
