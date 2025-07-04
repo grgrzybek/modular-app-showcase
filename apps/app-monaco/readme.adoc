@@ -1,0 +1,3 @@
+= Monaco editor
+
+This application shows how to (not) use monaco editor.
