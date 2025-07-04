@@ -1,0 +1,46 @@
+= @hawtio/learning-jest
+
+This package shows how `jest` works.
+
+== Dev notes
+
+`jest.mock('@hawtiosrc/plugins/shared/connect-service')` function which explicitly mocks a module and
+adds given module to `this._explicitShouldMock` in `jest`.
+
+When a test invokes `import()`, the importing is done by `requireModuleOrMock()` and `this._shouldMockCjs` is
+checked whether a mock or real module should be loaded:
+
+* this.requireMock
+* this.requireModule
+
+The module being loaded may use further `import`/`import()`/`require()`.
+
+For example `fetchMock.enableMocks()` registers this as mocked:
+
+----
+user:/data/sources/github.com/hawtio/hawtio-next/node_modules/node-fetch/lib/index.js:{"conditions":["require","default","browser"]}
+----
+
+`this.requireMock()` may change these:
+
+* moduleName: @hawtiosrc/plugins/shared/connect-service
+* modulePath: /data/sources/github.com/hawtio/hawtio-next/packages/hawtio/src/plugins/shared/connect-service.ts
+
+to:
+
+* moduleName: @hawtiosrc/plugins/shared/connect-service
+* modulePath: /data/sources/github.com/hawtio/hawtio-next/packages/hawtio/src/plugins/shared/__mocks__/connect-service.ts
+
+[,javascript]
+----
+const moduleDir = path().dirname(modulePath);
+const moduleFileName = path().basename(modulePath);
+const potentialManualMock = path().join(
+  moduleDir,
+  '__mocks__',
+  moduleFileName
+);
+----
+
+The point is that both the test and the module imported from imported module pass through `jest`, so we can mock them,
+reset them and so on.
