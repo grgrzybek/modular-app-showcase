@@ -7,17 +7,17 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@swc/core": "^1.11.20",
-    "@types/react": "^18.3.20",
+    "@swc/core": "^1.12.14",
+    "@types/react": "^18.3.23",
     "@types/react-dom": "^18.3.7",
     "copy-webpack-plugin": "^13.0.0",
     "css-loader": "^7.1.2",
     "style-loader": "^4.0.0",
     "swc-loader": "^0.2.6",
-    "webpack": "^5.99.5",
+    "webpack": "^5.100.2",
     "webpack-bundle-analyzer": "^4.10.2",
     "webpack-cli": "^6.0.1",
-    "webpack-dev-server": "^5.2.1"
+    "webpack-dev-server": "^5.2.2"
   },
   "packageManager": "yarn@4.9.0"
 }
