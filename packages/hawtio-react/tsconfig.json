@@ -42,6 +42,9 @@
     "isolatedModules": true,
     "esModuleInterop": true,
 
+    /* Completeness */
+    "skipLibCheck": true,
+
     /* Type Checking */
     "strict": true,
   },

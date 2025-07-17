@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-export * from "@src/auth-service"
+export * from "@src/auth/auth-service"

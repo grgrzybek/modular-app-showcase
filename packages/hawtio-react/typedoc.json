@@ -1,0 +1,17 @@
+{
+	"$schema": "https://typedoc.org/schema.json",
+	"entryPoints": ["./src/index.ts"],
+	"out": "docs",
+	"theme": "default",
+	"excludeExternals": true,
+	"name": "Hawtio API",
+	"readme": "none",
+	"hideGenerator": true,
+	"disableGit": true,
+	"disableSources": true,
+	"tsconfig": "./tsconfig.json",
+
+	"navigationLinks": {
+		"Github": "https://github.com/grgrzybek"
+	}
+}

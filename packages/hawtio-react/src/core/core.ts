@@ -14,7 +14,13 @@
  * limitations under the License.
  */
 
-class HawtioCore {
+/**
+ * Hawtio Core class
+ */
+export class HawtioCore {
+  /**
+   * asd
+   */
   public async initialize(): Promise<boolean> {
     return new Promise((resolve, _reject) => {
       setTimeout(() => {
@@ -24,6 +30,9 @@ class HawtioCore {
   }
 }
 
+/**
+ * asddsa
+ */
 const hawtio = new HawtioCore()
 
 export { hawtio }

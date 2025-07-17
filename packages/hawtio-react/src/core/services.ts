@@ -14,7 +14,10 @@
  * limitations under the License.
  */
 
-class UserService {
+/**
+ * UserService class
+ */
+export class UserService {
   private readonly user: Promise<string>
   private userResolve: (user: string) => void = (_user: string) => {}
   private userReject: (error: string) => void = (_error: string) => {}
@@ -45,6 +48,9 @@ class UserService {
   }
 }
 
+/**
+ * asd
+ */
 const userService = new UserService()
 
 export { userService }

@@ -32,9 +32,7 @@ import { AppProvider } from "@src/ui/context"
  *
  * @param children
  * @param components
- * @constructor
  */
-
 const Main: React.FunctionComponent<{ children?: ReactNode, components: React.FC[] }> = ({ children, components = [] }) => {
 
   // https://18.react.dev/learn/passing-data-deeply-with-context

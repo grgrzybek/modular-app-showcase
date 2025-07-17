@@ -19,8 +19,7 @@ import { defineConfig } from "tsup"
 export default defineConfig({
   entry: {
     index: "src/index.ts",
-    init: "src/init/index.ts",
-    init2: "src/init2/index.ts"
+    init: "src/init/index.ts"
   },
   target: "esnext",
   format: "esm",
