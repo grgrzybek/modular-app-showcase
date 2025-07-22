@@ -1,5 +1,5 @@
 import * as React from "react"
-import { ComponentType, useEffect, useMemo, useState } from "react"
+import { ComponentType, useEffect, useMemo, useRef, useState } from "react"
 
 import {
   BreadthFirstLayout,
@@ -45,6 +45,7 @@ const EDGES: EdgeModel[] = [];
 export const SimpleGraphPage: React.FC = () => {
 
   const [loaded, setLoaded] = useState(false)
+  const latch = useRef<{ p?: Promise<boolean>, r?: (v: boolean) => void, t: number }>()
 
   // https://v5-archive.patternfly.org/topology/about-topology
   // https://ialab.it.monash.edu/webcola/index.html
@@ -155,7 +156,14 @@ export const SimpleGraphPage: React.FC = () => {
 
     controller.addEventListener(GRAPH_LAYOUT_END_EVENT, () => {
       controller.getGraph().fit(80);
+      latch.current.r?.(true)
     });
+
+    if (!latch.current) {
+      latch.current = {
+        t: performance.now()
+      }
+    }
 
     // just as in BrokerDiagram.tsx
     controller.fromModel(model, false)
@@ -190,7 +198,7 @@ export const SimpleGraphPage: React.FC = () => {
       for (let n = 0; n < 2; n++) {
         newBrokerNodes.push({ id: `queue-${n}`, type: ModelKind.node, /*x: 20 * n, y: 240, */width: 15, height: 15 })
         newBrokerEdges.push({ id: `edge-${n}`, type: ModelKind.edge, source: 'broker', target: `queue-${n}`, edgeStyle: EdgeStyle.dotted })
-        controller.fromModel(model, false)
+        // controller.fromModel(model, false)
       }
 
       // 3. Create nodes by calling the fromModel method on the controller you initialized. fromModel will take the Model
@@ -199,9 +207,22 @@ export const SimpleGraphPage: React.FC = () => {
       // 7. Create nodes by calling the fromModel method on the controller. fromModel will take your data model
       //    as a parameter. Your data model should include a graph object, on which you will
       //    need to set id, type, and layout.
-      console.time("[grgr] fromModel")
-      controller.fromModel(model, true)
-      console.timeEnd("[grgr] fromModel")
+      // latch.current.p.then(() => {
+      // controller.fromModel(model, false)
+      if (latch.current.p) {
+        latch.current.p!.then(() => {
+          controller.fromModel(model, false)
+        })
+      } else {
+          controller.fromModel(model, false)
+      }
+      if (model.nodes.length > 0) {
+        latch.current.p = new Promise(resolve => {
+          latch.current.r = resolve
+        })
+      } else {
+        latch.current.p = latch.current.r = undefined
+      }
     }
   }, [controller, loaded]);
 
