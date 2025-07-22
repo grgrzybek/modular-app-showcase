@@ -1649,6 +1649,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@showcase/app-d3@workspace:apps/app-d3":
+  version: 0.0.0-use.local
+  resolution: "@showcase/app-d3@workspace:apps/app-d3"
+  dependencies:
+    "@swc/core": "npm:^1.12.14"
+    copy-webpack-plugin: "npm:^13.0.0"
+    css-loader: "npm:^7.1.2"
+    d3: "npm:^7.9.0"
+    style-loader: "npm:^4.0.0"
+    swc-loader: "npm:^0.2.6"
+    webcola: "npm:^3.4.0"
+    webpack: "npm:^5.100.2"
+    webpack-cli: "npm:^6.0.1"
+    webpack-dev-server: "npm:^5.2.2"
+  languageName: unknown
+  linkType: soft
+
 "@showcase/app-monaco@workspace:apps/app-monaco":
   version: 0.0.0-use.local
   resolution: "@showcase/app-monaco@workspace:apps/app-monaco"
@@ -1706,10 +1723,12 @@ __metadata:
     "@types/react-dom": "npm:^18.3.7"
     copy-webpack-plugin: "npm:^13.0.0"
     css-loader: "npm:^7.1.2"
+    d3: "npm:^7.9.0"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
     style-loader: "npm:^4.0.0"
     swc-loader: "npm:^0.2.6"
+    webcola: "npm:^3.4.0"
     webpack: "npm:^5.100.2"
     webpack-cli: "npm:^6.0.1"
     webpack-dev-server: "npm:^5.2.2"
@@ -4406,7 +4425,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"d3@npm:^7.8.0":
+"d3@npm:^7.8.0, d3@npm:^7.9.0":
   version: 7.9.0
   resolution: "d3@npm:7.9.0"
   dependencies:
@@ -9642,7 +9661,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webcola@npm:3.4.0":
+"webcola@npm:3.4.0, webcola@npm:^3.4.0":
   version: 3.4.0
   resolution: "webcola@npm:3.4.0"
   dependencies:

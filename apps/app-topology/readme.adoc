@@ -1,0 +1,36 @@
+= @patternfly/react-topology
+
+This application shows how to use graphs.
+
+See: https://v5-archive.patternfly.org/topology/about-topology
+
+The context is https://issues.apache.org/jira/browse/ARTEMIS-5497:
+
+----
+Uncaught runtime errors:
+ERROR
+GraphElement with ID 'g1' has no controller.
+getController@webpack-internal:///../node_modules/@patternfly/react-topology/dist/esm/elements/BaseElement.js:59:19
+runLayout/<@webpack-internal:///../node_modules/@patternfly/react-topology/dist/esm/layouts/BaseLayout.js:386:28
+ColaLayout/this.handleLayoutEnd@webpack-internal:///../node_modules/@patternfly/react-topology/dist/esm/layouts/ColaLayout.js:45:22
+initializeLayout/</<@webpack-internal:///../node_modules/@patternfly/react-topology/dist/esm/layouts/ColaLayout.js:80:26
+executeAction@webpack-internal:///../node_modules/mobx/dist/mobx.esm.js:1336:15
+res@webpack-internal:///../node_modules/mobx/dist/mobx.esm.js:1321:12
+initializeLayout/<@webpack-internal:///../node_modules/@patternfly/react-topology/dist/esm/layouts/ColaLayout.js:110:15
+call@webpack-internal:///../node_modules/d3-dispatch/src/dispatch.js:61:72
+D3StyleLayoutAdaptor.prototype.trigger@webpack-internal:///../node_modules/webcola/dist/src/d3v4adaptor.js:44:20
+Layout.prototype.tick@webpack-internal:///../node_modules/webcola/dist/src/layout.js:73:18
+D3StyleLayoutAdaptor.prototype.kick/t<@webpack-internal:///../node_modules/webcola/dist/src/d3v4adaptor.js:48:81
+timerFlush@webpack-internal:///../node_modules/d3-timer/src/timer.js:68:48
+wake@webpack-internal:///../node_modules/d3-timer/src/timer.js:78:5
+----
+
+== Dev notes
+
+* https://www.monash.edu/it/hcc/embodied-visualisation/projects/webcola-constraint-based-layout-in-the-browser
+* https://github.com/tgdwyer/WebCola
+* https://ialab.it.monash.edu/webcola/
+* https://github.com/d3/d3
+
+WebCola.js is an open-source JavaScript library for arranging your HTML5 documents and diagrams using constraint-based optimisation techniques. +
+It also has an adaptor for d3.js that allows you to use cola as a drop-in replacement for the D3 force layout.
