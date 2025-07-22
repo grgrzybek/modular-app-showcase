@@ -1,0 +1,19 @@
+{
+  "name": "@showcase/app-d3",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "d3": "^7.9.0",
+    "webcola": "^3.4.0"
+  },
+  "devDependencies": {
+    "@swc/core": "^1.12.14",
+    "copy-webpack-plugin": "^13.0.0",
+    "css-loader": "^7.1.2",
+    "style-loader": "^4.0.0",
+    "swc-loader": "^0.2.6",
+    "webpack": "^5.100.2",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.2"
+  }
+}

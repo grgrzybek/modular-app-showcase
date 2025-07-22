@@ -1,0 +1,85 @@
+= D3 and Cola layouts without React and Patternfly
+
+The context is https://issues.apache.org/jira/browse/ARTEMIS-5497. But only to understand
+animations with Cola layout for D3.
+
+== Dev notes
+
+* https://www.monash.edu/it/hcc/embodied-visualisation/projects/webcola-constraint-based-layout-in-the-browser
+* https://github.com/tgdwyer/WebCola
+* https://ialab.it.monash.edu/webcola/
+* https://github.com/d3/d3
+
+WebCola.js is an open-source JavaScript library for arranging your HTML5 documents and diagrams using constraint-based optimisation techniques. +
+It also has an adaptor for d3.js that allows you to use cola as a drop-in replacement for the D3 force layout.
+
+== Low level CSS support
+
+* https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_view_transitions
+* https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_transitions
+* https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_transforms
+* https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animations
+* https://developer.mozilla.org/en-US/docs/Web/CSS/CSSOM_view/Coordinate_systems
+
+transform:: Apply geometric transformations to elements (`translate()`, `rotate()`, `scale()`, `skew()`, `matrix()`)
+transition:: Animate property changes between two states (e.g., on hover). (`transition` property)
+animation:: Create keyframe-based animations with fine control. (`@keyframes` pseudo rule, `animation` property)
+
+== d3-timer
+
+`d3-timer` has nice low level functions:
+
+* `clock = typeof performance === "object" && performance.now ? performance : Date,`
+* `setFrame = typeof window === "object" && window.requestAnimationFrame ? window.requestAnimationFrame.bind(window) : function(f) { setTimeout(f, 17); };`
+
+D3 (timer) uses:
+
+* https://developer.mozilla.org/en-US/docs/Web/API/Performance_API
+* https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame
+
+.functions
+
+`d3.now()` - interesting function that generally returns `performance.now()` or `Date.now()` (depending on availability). However `performance.now()` is cached for the duration of single animation frame, because d3 either:
+
+* returns cached value if it's not 0
+* prepares and returns new value from `performance.now()`, but at the same time it schedules `clearnNow()` to be called in `requestAnimationFrame`!
+
+`d3.clearNow()` - called in `requestAnimationFrame` that clears frame-bound clock
+
+`d3.sleep()`
+
+`Timer` object - contains 3 fields:
+
+* `this._call` - callback to be called
+* `this._time` - time of the creation, defauilts to `d3.now()` + `delay`
+* `this._next` - for linked list of tasks, where module-global `taskHead` and `taskTail` point to the ends of the list
+
+methods:
+
+* `Timer.restart(callback, delay, time)` - called after `new Timer` by `d3.timer(c,d,t)`
+* `Timer.stop()` - clear `this._callback` and calls `sleep()`
+
+on `Timer.restart()` and `Timer.stop()`, `sleep()` is called:
+
+* if `frame == 1`, we're already processing a tick?
+* if `timeout` is set, `clearTimeout(timeout)` is called
+* without arguments, `undefined - clockNow`
+
+== d3-selection
+
+Generally based on `document.querySelector`
+
+* https://bost.ocks.org/mike/circles/ - nicely introduces to selections, data and joins
+* https://bost.ocks.org/mike/selection/
+* https://bost.ocks.org/mike/nest/
+* https://bost.ocks.org/mike/topology/
+* https://bost.ocks.org/mike/join/
+
+== d3-force
+
+This is a module which may be replaced by WebCola.
+
+It implements numerical integration algorithm for position/velocity/acceleration.
+
+User has to create a simulation with nodes to which forces are applied. We then need to listen to `tick` events to
+render the nodes in Canvas or SVG (and D3 can do that).
