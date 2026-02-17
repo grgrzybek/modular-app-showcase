@@ -1,0 +1,44 @@
+div.container {
+  display: flex;
+  font-size: 16px;
+  gap: 0.5rem;
+}
+div.left {
+  border: 1px solid gray;
+  flex: 0 0 30%;
+  padding: 0.5rem 0;
+}
+div.right {
+  border: 1px solid blue;
+  flex: 0 0 70%;
+  padding: 0.5rem;
+}
+li {
+  margin: 2px 0 2px 0;
+  cursor: pointer;
+}
+span.expander {
+  width: 1.5rem;
+  text-align: center;
+  display: inline-block;
+  border: 1px solid gray;
+  margin: 0 5px 0 0;
+  border-radius: 6px;
+}
+span.no-expander {
+  width: 1.5rem;
+  display: inline-block;
+  margin: 0 5px 0 0;
+}
+span.selected {
+  color: green;
+}
+span.selected > span.label:before {
+  content: '['
+}
+span.selected > span.label:after {
+  content: ']'
+}
+ul {
+  margin-left: 0.5rem;
+}
