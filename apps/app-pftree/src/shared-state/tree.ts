@@ -16,8 +16,8 @@ export class Tree {
 // for Patternfly, it should extend TreeViewDataItem
 export class Node {
   private readonly _id: string
-  private _name: string
-  private _children?: Node[]
+  private _name?: string
+  private _children: Node[]
   private _selected: boolean
   private _expanded: boolean
 
@@ -25,11 +25,15 @@ export class Node {
     return this._id
   }
 
-  get name(): string {
+  get name(): string | undefined {
     return this._name
   }
 
-  get children(): Node[] | undefined {
+  set name(value: string) {
+    this._name = value
+  }
+
+  get children(): Node[] {
     return this._children
   }
 
@@ -55,6 +59,7 @@ export class Node {
 
   constructor(id: string) {
     this._id = id
+    this._children = []
     this._selected = false
     this._expanded = false
   }

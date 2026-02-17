@@ -1,12 +1,15 @@
 import * as React from 'react'
 
-import { TreeContext, useTree } from './context'
+import { TreeContext, useTree, useTreeContext } from './context'
 import { useContext } from 'react'
 import { type Node } from './tree'
 
 export const OneLevelDeeper: React.FC = () => {
 
   const { selectedNode, setSelectedNode, tree, expandedNodes, setExpandedNodes } = useTree()
+
+  const ctx = useContext(TreeContext)
+  console.info("ctx before .Provider", ctx)
 
   return (
       <TreeContext.Provider value={{ tree, selectedNode, setSelectedNode, expandedNodes, setExpandedNodes }}>
@@ -21,15 +24,16 @@ export const OneLevelDeeper: React.FC = () => {
 }
 
 const LeftPanel: React.FC = () => {
-  const { tree } = useContext(TreeContext)
-  if (!tree) {
+  const ctx = useTreeContext()
+  console.info("ctx after .Provider", ctx)
+  if (!ctx.tree) {
     return (<span>not available yet</span>)
   }
-  return <Tree nodes={tree.nodes} level={0} />
+  return <Tree nodes={ctx.tree.nodes} level={0} />
 }
 
 const RightPanel: React.FC = () => {
-  const { selectedNode, expandedNodes } = useContext(TreeContext)
+  const { selectedNode, expandedNodes } = useTreeContext()
 
   return (<>
       <div>
@@ -44,30 +48,33 @@ const RightPanel: React.FC = () => {
   </>)
 }
 
-const Tree: React.FC<{ nodes: Node[], level: number }> = ({ nodes, level }) => {
-  const { selectedNode, setSelectedNode, setExpandedNodes } = useContext(TreeContext)
+const Tree: React.FC<{ nodes: Node[] | undefined, level: number }> = ({ nodes, level }) => {
+  const { selectedNode, setSelectedNode, setExpandedNodes } = useTreeContext()
 
   const onSelect = (node: Node) => {
     node.selected = !node.selected
     if (selectedNode && selectedNode.id !== node.id) {
       selectedNode.selected = false
     }
-    setSelectedNode(node.selected ? node : null)
+    setSelectedNode(node.selected ? node : undefined)
   }
+
   const onExpand = (node: Node) => {
     node.expanded = !node.expanded
     setExpandedNodes((expanded) => {
+      const current: string[] = expanded ?? []
       if (node.expanded) {
         // add
-        return [ ...expanded, node.id ]
+        return [ ...current, node.id ]
       } else {
         // remove
-        return expanded.filter(id => id !== node.id)
+        return current.filter(id => id !== node.id)
       }
     })
   }
+
   return (<ul className={`l-${level}`}>
-    {nodes.map((node) => (
+    {nodes && nodes.map((node) => (
         <li key={node.id}>
           <span className={`${node.selected ? 'selected' : ''}`}>
             {node.children ?
