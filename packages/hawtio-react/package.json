@@ -53,6 +53,5 @@
   },
   "peerDependencies": {
     "monaco-editor": "^0.52.2"
-  },
-  "packageManager": "yarn@4.9.0"
+  }
 }
