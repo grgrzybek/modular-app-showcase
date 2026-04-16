@@ -2,6 +2,9 @@
 
 This package shows how `jest` works.
 
+But not only. I also asked Bob to help me with debugging low-level mechanisms related to general concept of "loading".
+`jest`, `tsup`, `webpack` and `esbuild` are all "loading" TS code and produce some other code (bundlin the output and transforming the code if needed).
+
 == Dev notes
 
 `jest.mock('@hawtiosrc/plugins/shared/connect-service')` function which explicitly mocks a module and

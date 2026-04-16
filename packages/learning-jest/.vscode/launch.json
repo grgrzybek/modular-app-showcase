@@ -1,0 +1,147 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug tsup Build",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "--inspect-brk",
+        "--enable-source-maps"
+      ],
+      "args": [
+        "${workspaceFolder}/node_modules/.bin/tsup",
+        "--clean"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "skipFiles": [],
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "!**/node_modules/**"
+      ],
+      "outputCapture": "std"
+    },
+    {
+      "name": "Debug tsup Build (with node_modules)",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "--inspect-brk",
+        "--enable-source-maps"
+      ],
+      "args": [
+        "${workspaceFolder}/node_modules/.bin/tsup",
+        "--clean"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "skipFiles": [],
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "${workspaceFolder}/node_modules/**"
+      ],
+      "outputCapture": "std"
+    },
+    {
+      "name": "Debug Jest Tests",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "--inspect-brk",
+        "--experimental-vm-modules",
+        "--enable-source-maps"
+      ],
+      "args": [
+        "${workspaceFolder}/node_modules/.bin/jest",
+        "--runInBand",
+        "--no-cache",
+        "--no-coverage"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "skipFiles": [],
+      "outputCapture": "std"
+    },
+    {
+      "name": "Debug Jest Single Test",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "--inspect-brk",
+        "--experimental-vm-modules",
+        "--enable-source-maps"
+      ],
+      "args": [
+        "${workspaceFolder}/node_modules/.bin/jest",
+        "${file}",
+        "--runInBand",
+        "--no-cache"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "skipFiles": [],
+      "outputCapture": "std"
+    },
+    {
+      "name": "Debug Jest (Skip node_internals)",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "--inspect-brk",
+        "--experimental-vm-modules"
+      ],
+      "args": [
+        "${workspaceFolder}/node_modules/.bin/jest",
+        "--runInBand",
+        "--no-cache"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
+    },
+    {
+      "name": "Attach to Node Process",
+      "type": "node",
+      "request": "attach",
+      "port": 9229,
+      "skipFiles": [],
+      "sourceMaps": true,
+      "localRoot": "${workspaceFolder}",
+      "remoteRoot": null
+    },
+    {
+      "name": "Debug npm test",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run-script",
+        "test"
+      ],
+      "port": 9229,
+      "skipFiles": [],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Debug npm build",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run-script",
+        "build"
+      ],
+      "port": 9229,
+      "skipFiles": [],
+      "console": "integratedTerminal"
+    }
+  ]
+}
