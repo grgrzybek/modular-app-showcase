@@ -3,7 +3,8 @@
   "version": "0",
   "private": true,
   "workspaces": [
-    "packages/*",
+    "packages/artemis-console",
+    "packages/hawtio-react",
     "apps/*"
   ],
   "packageManager": "yarn@4.13.0"

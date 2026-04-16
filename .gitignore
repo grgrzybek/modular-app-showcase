@@ -1,6 +1,6 @@
 .idea/
 /.yarn/
-/packages/learning-jest/.yarn/
+/packages/learning-js-tools/.yarn/
 !/.yarn/releases/yarn-*.cjs
 node_modules/
 dist/
