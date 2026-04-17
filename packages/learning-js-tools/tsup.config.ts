@@ -16,6 +16,8 @@
 
 import { defineConfig } from "tsup"
 
+import esbuildDebugPlugin from './debug-helpers/esbuild-debug-plugin.js'
+
 export default defineConfig({
   entry: {
     index: "src/index.ts"
@@ -24,5 +26,8 @@ export default defineConfig({
   format: "esm",
   splitting: true,
   dts: true,
-  sourcemap: true
+  sourcemap: true,
+  esbuildPlugins: [
+    esbuildDebugPlugin
+  ]
 })

@@ -26,14 +26,19 @@ const config: JestConfigWithTsJest = {
   // testEnvironment: "./jest.jsdom.env.ts",
 
   verbose: true,
-  transform: {},
-  // transform: {
-  //   "^.*\\.tsx?$": [ "ts-jest", {
-  //     diagnostics: {
-  //       pretty: true
-  //     }
-  //   }]
-  // },
+  // transform: {},
+  transform: {
+    "^.*\\.tsx?$": [ "ts-jest", {
+      diagnostics: {
+        pretty: true
+      },
+      useESM: true,
+      tsconfig: {
+        sourceMap: true,
+        inlineSourceMap: true
+      }
+    }]
+  },
 
   setupFilesAfterEnv: [ "<rootDir>/src/__testconfig__/setup.ts" ],
 

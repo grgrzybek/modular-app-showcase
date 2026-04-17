@@ -43,7 +43,10 @@
         "${workspaceFolder}/**",
         "${workspaceFolder}/node_modules/**"
       ],
-      "outputCapture": "std"
+      "outputCapture": "std",
+      "autoAttachChildProcesses": true,
+      "smartStep": false,
+      "pauseForSourceMap": true
     },
     {
       "name": "Debug Jest Tests",
@@ -114,8 +117,18 @@
       "port": 9229,
       "skipFiles": [],
       "sourceMaps": true,
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "!**/node_modules/**"
+      ],
+      "cwd": "${workspaceFolder}",
       "localRoot": "${workspaceFolder}",
-      "remoteRoot": null
+      "remoteRoot": "${workspaceFolder}",
+      "outFiles": [
+        "${workspaceFolder}/**/*.js",
+        "!**/node_modules/**"
+      ],
+      "pauseForSourceMap": true
     },
     {
       "name": "Debug npm test",
