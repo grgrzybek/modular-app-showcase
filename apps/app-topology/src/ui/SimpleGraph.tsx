@@ -292,10 +292,10 @@ export const SimpleGraphPage: React.FC = () => {
   return (
       <div id="view">
         <TopologyView contextToolbar={contextToolbar} viewToolbar={viewToolbar}
-                      sideBarResizable={true} sideBar={sideBar} sideBarOpen={true}
+                      sideBarResizable={false}
                       controlBar={controlBar}>
           <VisualizationProvider controller={controller}>
-            <VisualizationSurface />
+            <VisualizationSurface state={{}} />
           </VisualizationProvider>
         </TopologyView>
       </div>
